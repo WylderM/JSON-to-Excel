@@ -42,7 +42,7 @@ module.exports.transformData = async function(req, res, next){
                 
                 //configuração de envio do e-mail.
                 let mailOptions = {
-                    from: 'vistoriatechapp.recuperarconta@gmail.com', //`${fromEmail}`,
+                    from: 'SEU EMAIL DO GMAIL', // OU `${fromEmail}`,
                     to:`${toEmail}`,
                     subject:'Relatório em Excel',
                     text:`Coloque qualquer texto aqui.`,
