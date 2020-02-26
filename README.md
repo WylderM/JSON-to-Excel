@@ -8,6 +8,11 @@ JSON to Excel(xlsx): https://github.com/agershun/alasql
 
 Obs: Lembrando que estou usando o serviço do gmail como remetente(Leia a documentação do nodemailer), mas o destinatário pode ser qualquer email.
 
+Para iniciar o projeto:
+npm run dev //Desenvolvimento
+npm start  //Produção
+
+
 Duas maneiras de enviar o json no body da requisição:
 
 1 - Se caso você quiser enviar o email e o relatório:
