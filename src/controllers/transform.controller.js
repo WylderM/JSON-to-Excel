@@ -6,15 +6,21 @@ const excel = require('alasql')
 module.exports.transformData = async function(req, res, next){
     try{
         //Parametros de pesquisa do relatório
+        
+        /*
+        # Se caso você quiser passar o email e senha do remetente no body da requisição use as variáveis a baixo.
+        
         const fromEmail = req.body.fromEmail
         const fromEmailPass = req.body.fromEmailPass
+        
+        */
         const toEmail = req.body.toEmail
         const jsonData = req.body.jsonData
         const transporter = nodemailer.createTransport({
-            service:'gmail',
+            service:'gmail', //Estou usando o serviço do Gmail, você pode usar qualquer um de sua preferência(consulte a documentação do nodemailer).
             auth:{
-                user: `${fromEmail}`,
-                pass: `${fromEmailPass}`
+                user: 'SEU EMAIL DO GMAIL', // OU `${fromEmail}`,
+                pass: 'SUA SENHA' // OU `${fromEmailPass}`
             }
         });
         //******** Relatório em Excel ************//
@@ -28,15 +34,15 @@ module.exports.transformData = async function(req, res, next){
             //Enviando E-mail com o relatório
             function sendUserEmail(){
                 let attachments = [{
-                    
                     filename: output_file_name,
-                    
+            
                     //informe o path onde seu arquivo foi salvo após ser gerado(no path abaixo estou informando o meu).
-                    path: 'C:/Users/Wylder/Desktop/Developer/Github Projects/json-excel-node/Relatorio.xlsx'
+                    path: 'C:/Users/Wylder/Desktop/Developer/GithubProjects/json-excel-node/Relatorio.xlsx'
                 }]
+                
                 //configuração de envio do e-mail.
                 let mailOptions = {
-                    from:`${fromEmail}`,
+                    from: 'vistoriatechapp.recuperarconta@gmail.com', //`${fromEmail}`,
                     to:`${toEmail}`,
                     subject:'Relatório em Excel',
                     text:`Coloque qualquer texto aqui.`,
@@ -57,7 +63,7 @@ module.exports.transformData = async function(req, res, next){
             }
             
             //Função para deletar o arquivo do diretório local após o envio(Obs: opcional caso você queira salvar).
-            function delSend(){
+             function delSend(){
                 sendUserEmail()
                 setTimeout(function(){
                     fs.unlink("Relatorio.xlsx", function (err) {
@@ -67,10 +73,9 @@ module.exports.transformData = async function(req, res, next){
                 }, 2000)
                 res.status(200).json("Relatório Excel")
             }delSend()  
-                
-            
         }
-        transformData()
+        //Executando a função principal.
+        relatorio()
     }
     catch(error){
         console.error("Error: ", error)
